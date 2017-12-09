@@ -1,4 +1,4 @@
-package com.ccmmall.dao;
+package com.ccmall.dao;
 
 import com.ccmall.pojo.OrderItem;
 
