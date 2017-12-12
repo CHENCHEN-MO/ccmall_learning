@@ -22,6 +22,7 @@ public class UserManageControl {
     @Autowired
     private IUserService iUserService;
 
+
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session){
@@ -37,4 +38,5 @@ public class UserManageControl {
         }
         return response;
     }
+
 }
