@@ -66,14 +66,14 @@ public class UserServiceImpl implements IUserService {
 
     public ServerResponse<String> checkValid(String str,String type){
         if (StringUtils.isNotBlank(type)){
-            if (Const.USERNAME.equals(str)){
+            if (Const.USERNAME.equals(type)){
                 int resultCount = userMapper.checkUsername(str);
                 if (resultCount > 0){
                     return ServerResponse.createByErrorMessage("用户名已经存在");
                 }
             }
 
-            if (Const.EMAIL.equals(str)){
+            if (Const.EMAIL.equals(type)){
                 int resultCount = userMapper.checkEmail(str);
                 if (resultCount > 0){
                     return ServerResponse.createByErrorMessage("邮箱已经存在");
