@@ -161,8 +161,9 @@
   <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
     SELECT
     <include refid="Base_Column_List" />
+    from ccmall_user
     WHERE username = #{username}
-    and password = ${password}
+    and password = #{password}
   </select>
 
   <select id="checkEmail" resultType="int" parameterType="string">
