@@ -87,13 +87,13 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "forget_rest_password.do",method = RequestMethod.POST)
+    @RequestMapping(value = "forget_reset_password.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetRestPassword(String username,String passwordNew,String forgetToken){
         return iUserService.forgetRestPassword(username,passwordNew,forgetToken);
     }
 
-    @RequestMapping(value = "rest_password.do",method = RequestMethod.POST)
+    @RequestMapping(value = "reset_password.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> resetPassword(HttpSession session,String passwordOld,String passwordNew){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -127,7 +127,7 @@ public class UserController {
         if(currentUser == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"未登录，需要强制登录");
         }
-        return null;
+        return ServerResponse.createBySuccess(currentUser);
     }
 
 

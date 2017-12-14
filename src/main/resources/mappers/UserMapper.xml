@@ -195,7 +195,7 @@
   </select>
 
   <select id="checkEmailByUserId" resultType="int" parameterType="map">
-    select count(1) from mmall_user
+    select count(1) from ccmall_user
     where email = #{email}
     and id != #{userId}
   </select>
