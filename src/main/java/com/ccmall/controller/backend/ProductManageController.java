@@ -5,8 +5,10 @@ import com.ccmall.common.ResponseCode;
 import com.ccmall.common.ServerResponse;
 import com.ccmall.pojo.Product;
 import com.ccmall.pojo.User;
+import com.ccmall.service.IFileService;
 import com.ccmall.service.IProductService;
 import com.ccmall.service.IUserService;
+import com.ccmall.util.PropertiesUtil;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +112,9 @@ public class ProductManageController {
         }
         if(iUserService.checkAdminRole(user).isSuccess()){
             //填充业务
-            return iProductService.searchProduct(productName,productId,pageNum,pageSize);
+            return null;
+
+            // return iProductService.searchProduct(productName,productId,pageNum,pageSize);
         }else{
             return ServerResponse.createByErrorMessage("无权限操作");
         }
@@ -127,7 +131,6 @@ public class ProductManageController {
             String path = request.getSession().getServletContext().getRealPath("upload");
             String targetFileName = iFileService.upload(file,path);
             String url = PropertiesUtil.getProperty("ftp.server.http.prefix")+targetFileName;
-
             Map fileMap = Maps.newHashMap();
             fileMap.put("uri",targetFileName);
             fileMap.put("url",url);
