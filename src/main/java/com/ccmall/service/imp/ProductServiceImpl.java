@@ -180,42 +180,45 @@ public class ProductServiceImpl implements IProductService{
         return ServerResponse.createBySuccess(productDetailVo);
     }
 
-    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy){
-        if(StringUtils.isBlank(keyword)&&categoryId == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy) {
+        if (StringUtils.isBlank(keyword) && categoryId == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         List<Integer> categoryIdList = new ArrayList<>();
-        if (categoryId!=null){
+        if (categoryId != null) {
             Category category = categoryMapper.selectByPrimaryKey(categoryId);
-            if (category==null && StringUtils.isBlank(keyword)){
-                PageHelper.startPage(pageNum,pageSize);
-                List<ProductDetailVo>   productDetailVoList = Lists.newArrayList();
+            if (category == null && StringUtils.isBlank(keyword)) {
+                PageHelper.startPage(pageNum, pageSize);
+                List<ProductDetailVo> productDetailVoList = Lists.newArrayList();
                 PageInfo pageInfo = new PageInfo(productDetailVoList);
                 return ServerResponse.createBySuccess(pageInfo);
             }
             categoryIdList = iCategoryService.selectCategoryAndChildrenById(categoryId).getData();
-            if(StringUtils.isNotBlank(keyword)){
-                keyword = new StringBuilder().append("%").append(keyword).append("%").toString();
-            }
-
-            PageHelper.startPage(pageNum,pageSize);
-
-            //排序处理
-            if (StringUtils.isNotBlank(orderBy)){
-                if (Const.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)){
-                    String[] orderByArray = orderBy.split("_");
-                    PageHelper.orderBy(orderByArray[0]+" "+orderByArray[1]);
-                }
-            }
-
-            List<Product> productList = productMapper.selectByNameAndCategoryIds(StringUtils.isBlank(keyword)?null:keyword,categoryIdList.size()==0?null:categoryIdList);
-
-            List<ProductDetailVo> productDetailVoList = Lists.newArrayList();
-            for (Product productItem : productList) {
-            }
-
         }
 
-        return null;
+        if (StringUtils.isNotBlank(keyword)) {
+            keyword = new StringBuilder().append("%").append(keyword).append("%").toString();
+        }
+
+        PageHelper.startPage(pageNum, pageSize);
+        //排序处理
+        if (StringUtils.isNotBlank(orderBy)) {
+            if (Const.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)) {
+                String[] orderByArray = orderBy.split("_");
+                PageHelper.orderBy(orderByArray[0] + " " + orderByArray[1]);
+            }
+        }
+
+        List<Product> productList = productMapper.selectByNameAndCategoryIds(StringUtils.isBlank(keyword) ? null : keyword, categoryIdList.size() == 0 ? null : categoryIdList);
+
+        List<ProductListVo> productListVoList = Lists.newArrayList();
+        for (Product productItem : productList) {
+            ProductListVo productListVo = assembleProductListVo(productItem);
+            productListVoList.add(productListVo);
+        }
+
+        PageInfo pageInfo = new PageInfo(productList);
+        pageInfo.setList(productListVoList);
+        return ServerResponse.createBySuccess(pageInfo);
     }
 }
