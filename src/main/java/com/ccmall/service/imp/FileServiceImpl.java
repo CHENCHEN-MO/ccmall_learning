@@ -3,7 +3,6 @@ package com.ccmall.service.imp;
 import com.ccmall.service.IFileService;
 import com.ccmall.util.FTPUtil;
 import com.google.common.collect.Lists;
-import org.jcp.xml.dsig.internal.dom.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
