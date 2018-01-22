@@ -223,7 +223,7 @@ public class OrderServiceImpl implements IOrderService {
             return ServerResponse.createBySuccess("支付宝重复调用");
         }
 
-        if (Const.AlipaytCallback.TRADE_STATUS_TRADE_SUCCESS.equals(tradeStatus)){
+        if (Const.AlipayCallback.TRADE_STATUS_TRADE_SUCCESS.equals(tradeStatus)){
             order.setPaymentTime(DateTimeUtil.strToDate(params.get("gmt_payment")));
             order.setStatus(Const.OrderStatusEnum.PAID.getCode());
             orderMapper.updateByPrimaryKeySelective(order);
@@ -296,7 +296,7 @@ public class OrderServiceImpl implements IOrderService {
         orderVo.setOrderNo(order.getOrderNo());
         orderVo.setPayment(order.getPayment());
         orderVo.setPaymentType(order.getPaymentType());
-        orderVo.setPaymentTypeDesc(Const.PaymentTypEnum.codeOf(order.getPaymentType()).getValue());
+        orderVo.setPaymentTypeDesc(Const.PaymentTypeEnum.codeOf(order.getPaymentType()).getValue());
 
         orderVo.setShippingId(order.getShippingId());
         Shipping shipping = shippingMapper.selectByPrimaryKey(order.getShippingId());
@@ -376,7 +376,7 @@ public class OrderServiceImpl implements IOrderService {
         order.setStatus(Const.OrderStatusEnum.NO_PAY.getCode());
         order.setPayment(payment);
         order.setPostage(0);
-        order.setPaymentType(Const.PaymentTypEnum.ONLINE_PAY.getCode());
+        order.setPaymentType(Const.PaymentTypeEnum.ONLINE_PAY.getCode());
 
         order.setUserId(userId);
         order.setShippingId(shippingId);

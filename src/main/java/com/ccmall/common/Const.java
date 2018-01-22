@@ -79,7 +79,7 @@ public class Const {
         }
     }
 
-    public interface AlipaytCallback{
+    public interface AlipayCallback{
         String TRADE_STATUS_WAIT_BUYER_PAY = "WAIT_BUYER_PAY";
         String TRADE_STATUS_TRADE_SUCCESS = "TRADE_SUCCESS";
 
@@ -116,13 +116,13 @@ public class Const {
         }
     }
 
-    public enum PaymentTypEnum{
+    public enum PaymentTypeEnum{
 
         ONLINE_PAY(1,"在线支付");
 
         private String value;
         private int code;
-        PaymentTypEnum(int code,String value){
+        PaymentTypeEnum(int code,String value){
             this.code = code;
             this.value = value;
         }
@@ -143,8 +143,8 @@ public class Const {
             this.code = code;
         }
 
-        public static PaymentTypEnum codeOf(int code){
-            for (PaymentTypEnum paymentTypEnum:values()) {
+        public static PaymentTypeEnum codeOf(int code){
+            for (PaymentTypeEnum paymentTypEnum:values()) {
                 if (paymentTypEnum.getCode() == code){
                     return paymentTypEnum;
                 }

@@ -130,9 +130,9 @@ public class OrderController {
 
         ServerResponse serverResponse =  iOrderService.aliCallback(params);
         if (serverResponse.isSuccess()){
-            return Const.AlipaytCallback.RESPONSE_SUCCESS;
+            return Const.AlipayCallback.RESPONSE_SUCCESS;
         }
-        return Const.AlipaytCallback.RESPONSE_FAILED;
+        return Const.AlipayCallback.RESPONSE_FAILED;
 
     }
 
