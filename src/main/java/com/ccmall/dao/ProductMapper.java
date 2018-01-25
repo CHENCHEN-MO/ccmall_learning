@@ -2,9 +2,11 @@ package com.ccmall.dao;
 
 import com.ccmall.pojo.Product;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
 

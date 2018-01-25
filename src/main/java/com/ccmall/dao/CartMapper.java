@@ -2,9 +2,11 @@ package com.ccmall.dao;
 
 import com.ccmall.pojo.Cart;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface CartMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -2,9 +2,11 @@ package com.ccmall.dao;
 
 import com.ccmall.common.ServerResponse;
 import com.ccmall.pojo.Category;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
