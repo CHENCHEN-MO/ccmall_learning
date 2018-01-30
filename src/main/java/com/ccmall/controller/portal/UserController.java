@@ -6,6 +6,8 @@ import com.ccmall.common.ResponseCode;
 import com.ccmall.common.ServerResponse;
 import com.ccmall.pojo.User;
 import com.ccmall.service.IUserService;
+import com.ccmall.util.JsonUtil;
+import com.ccmall.util.RedisPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +40,9 @@ public class UserController {
     public ServerResponse<User> login(String username, String password, HttpSession session){
         ServerResponse<User> response = iUserService.login(username,password);
         if(response.isSuccess()){
-            session.setAttribute(Const.CURRENT_USER,response.getData());
+           // session.setAttribute(Const.CURRENT_USER,response.getData());
+
+            RedisPoolUtil.setEx(session.getId(), JsonUtil.obj2String(response.getData()),Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
         }
         return response;
     }

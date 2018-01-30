@@ -32,4 +32,8 @@ public class User {
 
     private Date updateTime;
 
+    public User(Integer id, String password) {
+        this.id = id;
+        this.password = password;
+    }
 }

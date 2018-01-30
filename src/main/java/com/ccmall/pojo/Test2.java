@@ -3,12 +3,12 @@ package com.ccmall.pojo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Test {
+@ToString
+public class Test2 {
     private String name;
-    private String year;
-
 }
