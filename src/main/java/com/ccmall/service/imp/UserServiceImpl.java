@@ -2,18 +2,15 @@ package com.ccmall.service.imp;
 
 import com.ccmall.common.Const;
 import com.ccmall.common.ServerResponse;
-import com.ccmall.common.TokenCache;
 import com.ccmall.dao.UserMapper;
 import com.ccmall.pojo.User;
 import com.ccmall.service.IUserService;
 import com.ccmall.util.MD5Util;
-import org.apache.commons.configuration.plist.Token;
+import com.ccmall.util.RedisPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
-import javax.xml.ws.Response;
 import java.util.UUID;
 
 /**
@@ -102,7 +99,7 @@ public class UserServiceImpl implements IUserService {
         int resultCount = userMapper.checkAnswer(username,question,answer);
         if (resultCount > 0) {
             String forgetToken = UUID.randomUUID().toString();
-            TokenCache.setKey(TokenCache.TOKEN_PREFIX +username,forgetToken);
+            RedisPoolUtil.setEx(Const.TOKEN_PREFIX +username,forgetToken,60 * 60 * 12);
             return ServerResponse.createBySuccess(forgetToken);
         }
         return ServerResponse.createByErrorMessage("问题的答案错误");
@@ -116,7 +113,7 @@ public class UserServiceImpl implements IUserService {
         if (serverResponse.isSuccess()){
             return ServerResponse.createByErrorMessage("用户名不存在");
         }
-        String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX + username);
+        String token = RedisPoolUtil.get(Const.TOKEN_PREFIX + username);
         if (StringUtils.isBlank(token)){
             return ServerResponse.createByErrorMessage("token无效或者过期");
         }
