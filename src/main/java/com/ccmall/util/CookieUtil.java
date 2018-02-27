@@ -7,9 +7,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by Administrator on 2018/2/26.
- */
 @Slf4j
 public class CookieUtil {
 
@@ -38,7 +35,8 @@ public class CookieUtil {
         Cookie ck = new Cookie(COOKIE_NAME,token);
         ck.setDomain(COOKIE_DOMAIN);
         ck.setPath("/");//代表设置在根目录下
-
+        //设置成true表示该Cookie信息不可以通过脚本读取同时也不可以发送给第三方站点，保证了一定的安全性
+        ck.setHttpOnly(true);
         //单位是秒，表示cookie的有效期，如果MaxAge不设置的话，cookie就不会写入硬盘，而是写入内存。只在当前页面有效。
         ck.setMaxAge(60 * 60 * 24 * 365);//如果是-1，代表永久
         log.info("write cookieName:{},cookieValue:{}",ck.getName(),ck.getValue());
