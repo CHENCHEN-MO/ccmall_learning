@@ -15,7 +15,7 @@ public class RedisPool {
     private static Integer minIdle = Integer.valueOf(PropertiesUtil.getProperty("redis.min.idle","2"));//在jedisPool中最小的idle状态（空闲状态）jedis实例的个数
     private static Boolean testOnBorrow = Boolean.valueOf(PropertiesUtil.getProperty("redis.test.borrow","true"));//在borrow（借用，使用）一个jedis实例之前是否需要验证jedis实例的可用性。设置为true就是需要验证
     private static Boolean testOnReturn = Boolean.valueOf(PropertiesUtil.getProperty("redis.test.return","true"));//在Returen（放回）一个jedis实例之前是否需要验证jedis实例的可用性。设置为true就是需要验证
-    private static String redisIp = PropertiesUtil.getProperty("redis.ip");
+    private static String redisIp = PropertiesUtil.getProperty("redis.ip","47.95.195.41");
     private static Integer redisPort = Integer.valueOf(PropertiesUtil.getProperty("redis.port","6379"));
 
     private static void initPool(){
