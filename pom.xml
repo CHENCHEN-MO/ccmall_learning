@@ -252,8 +252,16 @@
       <version>1.16.20</version>
       <scope>provided</scope>
     </dependency>
-  </dependencies>
 
+    <!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis
+    <!  spring session 单点登录-->
+    <dependency>
+      <groupId>org.springframework.session</groupId>
+      <artifactId>spring-session-data-redis</artifactId>
+      <version>1.2.0.RELEASE</version>
+    </dependency>
+
+  </dependencies>
 
   <build>
     <finalName>ccmall</finalName>
